@@ -1870,6 +1870,34 @@ add_library(love_3p_wuff
 )
 
 #
+# Imgui
+#
+
+add_library(love_3p_imgui
+	# Core
+	src/libraries/imgui-docking/imconfig.h
+	src/libraries/imgui-docking/imgui.cpp
+	src/libraries/imgui-docking/imgui.h
+	src/libraries/imgui-docking/imgui_demo.cpp
+	src/libraries/imgui-docking/imgui_draw.cpp
+	src/libraries/imgui-docking/imgui_internal.h
+	src/libraries/imgui-docking/imgui_tables.cpp
+	src/libraries/imgui-docking/imgui_widgets.cpp
+	src/libraries/imgui-docking/imstb_rectpack.h
+	src/libraries/imgui-docking/imstb_textedit.h
+	src/libraries/imgui-docking/imstb_truetype.h
+	# Backends
+	src/libraries/imgui-docking/backends/imgui_impl_sdl3.cpp
+	src/libraries/imgui-docking/backends/imgui_impl_sdl3.h
+	src/libraries/imgui-docking/backends/imgui_impl_opengl3.cpp
+	src/libraries/imgui-docking/backends/imgui_impl_opengl3.h
+)
+
+target_link_libraries(love_3p_imgui PUBLIC
+	lovedep::SDL
+)
+
+#
 # xxHash
 #
 
@@ -1886,6 +1914,8 @@ include_directories(
 	src
 	src/libraries
 	src/libraries/box2D
+	src/libraries/imgui-docking
+	src/libraries/imgui-docking/backends
 	src/modules
 )
 
@@ -1948,6 +1978,7 @@ set(LIBLOVE_LIBRARIES
 	love_3p_physfs
 	love_3p_spirv_cross
 	love_3p_wuff
+	love_3p_imgui
 	love_3p_xxhash
 )
 target_link_libraries(liblove ${LIBLOVE_DEPENDENCIES} ${LIBLOVE_LIBRARIES})

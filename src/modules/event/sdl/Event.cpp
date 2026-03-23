@@ -37,6 +37,7 @@
 
 #include "joystick/sdl/Joystick.h"
 #include "window/sdl/Window.h"
+#include <imgui_impl_sdl3.h>
 
 namespace love
 {
@@ -278,6 +279,8 @@ Message *Event::convert(const SDL_Event &e)
 		if (sdlwin != nullptr)
 			sdlwin->handleSDLEvent(e);
 	}
+	// Imgui events
+	ImGui_ImplSDL3_ProcessEvent(&e);
 
 	switch (e.type)
 	{

@@ -25,6 +25,9 @@
 #	include "graphics/vulkan/Graphics.h"
 #	include "graphics/vulkan/Vulkan.h"
 #endif
+
+//#include "graphics/opengl/OpenGL.h"
+
 #include "Window.h"
 #include "filesystem/Filesystem.h"
 
@@ -56,6 +59,11 @@
 #elif defined(LOVE_MACOS)
 #include "common/macos.h"
 #endif
+
+// Imgui includes
+#include "imgui.h"
+#include "imgui_impl_sdl3.h"
+#include "imgui_impl_opengl3.h"
 
 #ifndef APIENTRY
 #define APIENTRY
@@ -358,6 +366,23 @@ bool Window::createWindowAndContext(int x, int y, int w, int h, Uint32 windowfla
 				window = nullptr;
 				return false;
 			}
+
+			//Imgui stuff goes here.
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO &io = ImGui::GetIO(); (void)io;
+			io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+			io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+			io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+			//io.ConfigViewportsNoAutoMerge = true;
+			//io.ConfigViewportsNoTaskBarIcon = true;
+
+			ImGui_ImplSDL3_InitForOpenGL(window, glcontext);
+			ImGui_ImplOpenGL3_Init("#version 130");
+
+
+			
 		}
 
 		return true;
@@ -1265,6 +1290,35 @@ void Window::swapBuffers()
 			}
 		}
 #endif
+
+		// Render imgui
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplSDL3_NewFrame();
+		ImGui::NewFrame();
+
+		ImGui::ShowDemoWindow();
+
+		ImGui::Render();
+
+
+		ImGuiIO &io = ImGui::GetIO(); (void)io;
+
+		//setViewport
+		//love::graphics::opengl::glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+		//love::graphics::opengl::fp_glClear(GL_COLOR_BUFFER_BIT);
+		
+
+		//glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			SDL_Window *currentWindow = SDL_GL_GetCurrentWindow();
+			SDL_GLContext currentContext = SDL_GL_GetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			SDL_GL_MakeCurrent(currentWindow, currentContext);
+		}
 
 		SDL_GL_SwapWindow(window);
 
