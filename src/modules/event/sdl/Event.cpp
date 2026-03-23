@@ -277,10 +277,16 @@ Message *Event::convert(const SDL_Event &e)
 		// with a non-SDL window backend will be a thing.
 		auto sdlwin = dynamic_cast<love::window::sdl::Window *>(win);
 		if (sdlwin != nullptr)
+
+			// Imgui events
+			if (sdlwin->getWindowRenderer() == graphics::RENDERER_OPENGL)
+			{
+				ImGui_ImplSDL3_ProcessEvent(&e);
+			}
+
 			sdlwin->handleSDLEvent(e);
 	}
-	// Imgui events
-	ImGui_ImplSDL3_ProcessEvent(&e);
+
 
 	switch (e.type)
 	{

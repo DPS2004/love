@@ -1614,6 +1614,11 @@ void Window::handleSDLEvent(const SDL_Event &event)
 	}
 }
 
+graphics::Renderer Window::getWindowRenderer()
+{
+	return windowRenderer;
+}
+
 void Window::showFileDialog(const FileDialogData &data, FileDialogCallback callback, void *context)
 {
 	SDL_FileDialogType sdltype = SDL_FILEDIALOG_OPENFILE;

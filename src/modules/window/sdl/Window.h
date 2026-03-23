@@ -138,6 +138,8 @@ public:
 
 	void handleSDLEvent(const SDL_Event &event);
 
+	graphics::Renderer getWindowRenderer();
+
 private:
 
 	struct ContextAttribs
