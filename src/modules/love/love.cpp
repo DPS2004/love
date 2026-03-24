@@ -129,6 +129,9 @@ extern "C"
 #if defined(LOVE_ENABLE_IMAGE)
 	extern int luaopen_love_image(lua_State*);
 #endif
+#if defined(LOVE_ENABLE_IMGUI)
+	extern int luaopen_love_imgui(lua_State *);
+#endif
 #if defined(LOVE_ENABLE_JOYSTICK)
 	extern int luaopen_love_joystick(lua_State*);
 #endif
@@ -200,6 +203,9 @@ static const luaL_Reg modules[] = {
 #endif
 #if defined(LOVE_ENABLE_IMAGE)
 	{ "love.image", luaopen_love_image },
+#endif
+#if defined(LOVE_ENABLE_IMGUI)
+	{ "love.imgui", luaopen_love_imgui },
 #endif
 #if defined(LOVE_ENABLE_JOYSTICK)
 	{ "love.joystick", luaopen_love_joystick },

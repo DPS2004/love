@@ -766,6 +766,20 @@ target_link_libraries(love_image INTERFACE
 )
 
 #
+# love.imgui
+#
+
+add_library(love_imgui STATIC
+	src/modules/imgui/Imgui.cpp
+	src/modules/imgui/Imgui.h
+	src/modules/imgui/wrap_Imgui.cpp
+	src/modules/imgui/wrap_Imgui.h
+)
+target_link_libraries(love_imgui PUBLIC
+	lovedep::Lua
+)
+
+#
 # love.joystick
 #
 
@@ -1949,6 +1963,7 @@ set(LIBLOVE_DEPENDENCIES
 	love_font
 	love_graphics
 	love_image
+	love_imgui
 	love_joystick
 	love_keyboard
 	love_math
