@@ -360,7 +360,7 @@ function love.init()
 		"sensor",
 		"audio",
 		"image",
-		"imgui",
+		--"imgui", --Uncomment me once the window init thing is fixed
 		"video",
 		"font",
 		"window",
@@ -425,6 +425,9 @@ function love.init()
 			x = c.window.x,
 			y = c.window.y,
 		}), "Could not set window mode")
+		--TODO: Move Imgui init out of window, and into its own section of its own module.
+		--This is only here because window needs to get inited before this is required.
+		require("love.imgui")
 	end
 
 	-- The first couple event pumps on some systems (e.g. macOS) can take a

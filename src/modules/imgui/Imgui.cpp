@@ -29,9 +29,18 @@ namespace imgui
 
 Imgui::Imgui()
 	: Module(M_IMGUI, "love.imgui")
+	, io(ImGui::GetIO())
 {
 }
 
+bool Imgui::getCaptureMouse() const
+{
+	return io.WantCaptureMouse;
+}
+bool Imgui::getCaptureKeyboard() const
+{
+	return io.WantCaptureKeyboard;
+}
 
 } // imgui
 } // love

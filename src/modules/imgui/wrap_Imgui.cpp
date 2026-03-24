@@ -30,15 +30,22 @@ namespace imgui
 
 #define instance() (Module::getInstance<Imgui>(Module::M_IMGUI))
 
-int w_getNumber(lua_State *L)
+
+int w_getCaptureMouse(lua_State *L)
 {
-	lua_pushinteger(L, 12345);
+	lua_pushboolean(L, instance()->getCaptureMouse());
+	return 1;
+}
+int w_getCaptureKeyboard(lua_State *L)
+{
+	lua_pushboolean(L, instance()->getCaptureKeyboard());
 	return 1;
 }
 
 static const luaL_Reg functions[] =
 {
-	{ "getNumber", w_getNumber },
+	{ "getCaptureMouse", w_getCaptureMouse },
+	{ "getCaptureKeyboard", w_getCaptureKeyboard },
 	{ 0, 0 }
 };
 

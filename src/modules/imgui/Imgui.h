@@ -23,6 +23,7 @@
 
  // LOVE
 #include "common/Module.h"
+#include <imgui.h>
 
 namespace love
 {
@@ -35,6 +36,17 @@ public:
 
 	Imgui();
 	virtual ~Imgui() {}
+	/**
+	 * Gets whether or not Imgui should be capturing the mouse
+	 **/
+	bool getCaptureMouse() const;
+	/**
+	 * Gets whether or not Imgui should be capturing the keyboard
+	 **/
+	bool getCaptureKeyboard() const;
+
+private:
+	ImGuiIO &io;
 }; // Imgui
 
 } // imgui
